@@ -14,7 +14,10 @@ export class AuthService {
 
   async register(userDto: CreateUserDto): Promise<any> {
     const hashedPassword = await bcrypt.hash(userDto.password, 10);
-    const newUser = await this.usersService.create({...userDto, password: hashedPassword});
+    const newUser = await this.usersService.create({
+      ...userDto,
+      password: hashedPassword,
+    });
     return this.generateToken(newUser);
   }
 
