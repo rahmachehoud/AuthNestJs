@@ -10,20 +10,20 @@ export class AuthController {
   constructor(private authService: AuthService) {}
 
   @ApiBody({
-    description: "User registration data",
+    description: 'User registration data',
     type: CreateUserDto,
     examples: {
       a: {
-        summary: "Sample registration",
+        summary: 'Sample registration',
         value: {
-          firstname: "john",
-          lastname: "doe",
-          username: "john_doe",
-          password: "securePassword123",
-          email: "john_doe@example.com"
-        }
-      }
-    }
+          firstname: 'john',
+          lastname: 'doe',
+          username: 'john_doe',
+          password: 'securePassword123',
+          email: 'john_doe@example.com',
+        },
+      },
+    },
   })
   @Post('register')
   @ApiResponse({
@@ -36,21 +36,18 @@ export class AuthController {
   }
 
   @ApiBody({
- description: 'Login credentials',
+    description: 'Login credentials',
 
-      type: LoginDto,
-      examples: {
-        a: {
-          summary: " Login",
-          value: {
-            username: 'john_doe',
-            password: 'securePassword123'
-          
-          }
-        }
-      }
-     
-    
+    type: LoginDto,
+    examples: {
+      a: {
+        summary: ' Login',
+        value: {
+          username: 'john_doe',
+          password: 'securePassword123',
+        },
+      },
+    },
   })
   @Post('login')
   @ApiResponse({
@@ -66,4 +63,3 @@ export class AuthController {
     return this.authService.login(loginDto);
   }
 }
-
