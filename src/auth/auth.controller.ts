@@ -2,6 +2,7 @@ import { Controller, Post, Body, HttpStatus, HttpCode } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/dto/create-user.dto';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LoginDto } from 'src/dto/login.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -35,13 +36,21 @@ export class AuthController {
   }
 
   @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        username: { type: 'string', example: 'john_doe' },
-        password: { type: 'string', format: 'password', example: 'securePassword123' }
+ description: 'Login credentials',
+
+      type: LoginDto,
+      examples: {
+        a: {
+          summary: " Login",
+          value: {
+            username: 'john_doe',
+            password: 'securePassword123'
+          
+          }
+        }
       }
-    }
+     
+    
   })
   @Post('login')
   @ApiResponse({
@@ -53,8 +62,8 @@ export class AuthController {
     description: 'Unauthorized, invalid username or password.',
   })
   @HttpCode(HttpStatus.OK)
-  async login(@Body() credentials: {username: string, password: string}) {
-    return this.authService.login(credentials.username, credentials.password);
+  async login(@Body() loginDto: LoginDto) {
+    return this.authService.login(loginDto);
   }
 }
 
